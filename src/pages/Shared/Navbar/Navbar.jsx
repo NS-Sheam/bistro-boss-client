@@ -19,6 +19,7 @@ const Navbar = () => {
         {
             user ?
                 <>
+                    <span className="h-full my-auto">{user.displayName}</span>
                     <button onClick={handleLogOut} className="btn btn-active btn-ghost">Log Out</button>
                 </> :
                 <>
