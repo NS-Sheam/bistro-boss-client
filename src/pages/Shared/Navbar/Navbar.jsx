@@ -11,11 +11,15 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         logOut()
-            .then(() => { console.log("helo") })
-            .catch(error => console.log(error))
+            .then(() => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
-    
+
 
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
