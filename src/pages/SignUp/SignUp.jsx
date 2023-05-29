@@ -17,19 +17,37 @@ const SignUp = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 updateUserProfile(formData.name, formData.photoURL)
-                    .then(() => { "updated" })
-                    .catch(error => console.log(error))
-                    reset();
-                    Swal.fire({
-                        title: 'Sign Up successfully',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
+                    .then(() => {
+                            const savedUser = { name: formData.name, email: formData.email }
+                            console.log(savedUser);
+                            fetch("http://localhost:5000/users", {
+                                method: "POST",
+                                headers: {
+                                    "content-type": "application/json"
+                                },
+                                body: JSON.stringify(savedUser)
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log(data);
+                                    if (data.insertedId) {
+                                        console.log("success");
+                                        // console.log("prifile updated");
+                                        reset();
+                                        Swal.fire({
+                                            title: 'Sign Up successfully',
+                                            showClass: {
+                                                popup: 'animate__animated animate__fadeInDown'
+                                            },
+                                            hideClass: {
+                                                popup: 'animate__animated animate__fadeOutUp'
+                                            }
+                                        })
+                                        navigate("/");
+                                    }
+                                })
                     })
-                    navigate("/");
+                    .catch(error => console.log(error.message))
             })
             .catch(error => {
                 console.log(error.message);
